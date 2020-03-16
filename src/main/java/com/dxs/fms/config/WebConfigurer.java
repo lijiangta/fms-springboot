@@ -14,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootConfiguration
 public class WebConfigurer implements WebMvcConfigurer {
 
-    @Bean
+    /*@Bean
     public LoginInterceptor getLoginInterceptor() {
         return new LoginInterceptor();
     }
@@ -22,5 +22,5 @@ public class WebConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor(getLoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/index.html");
-    }
+    }*/
 }
