@@ -14,14 +14,18 @@ import com.dxs.fms.vo.SelectFileVo;
 import com.dxs.fms.vo.UpdateEmployeeVo;
 import com.dxs.fms.vo.UpdateFileVo;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author dxs
  * @date 2020/3/16 0016 14:02
  */
+@Repository
 public class FileServiceImpl implements FileService {
     @Autowired
     private FileMapper fileMapper;
@@ -67,7 +71,18 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public Result1<FileDto> get(SelectFileVo selectFileVo) {
-        if(selectFileVo == null) return new Result1<>(false, new FileDto());
+        if(selectFileVo == null) {
+            return new Result1<>(false, new FileDto());
+        }
         return new Result1<>(true, fileMapper.getFile(selectFileVo));
+    }
+
+    @Override
+    public Result1<FileDto> listFileByUserRealName(String realName) {
+        String userRealName = realName.replaceAll("\\s","");
+        if(userRealName.isEmpty()) {
+            return new Result1<>(false, new ArrayList<>());
+        }
+        return new Result1<>(true, fileMapper.listFileByUserRealName(userRealName));
     }
 }

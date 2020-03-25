@@ -15,6 +15,8 @@ import com.dxs.fms.vo.UpdateDepartmentVo;
 import com.dxs.fms.vo.UpdateEmployeeVo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -22,6 +24,7 @@ import java.util.List;
  * @author dxs
  * @date 2020/3/16 0016 14:01
  */
+@Service
 public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired

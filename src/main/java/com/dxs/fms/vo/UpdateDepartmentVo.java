@@ -22,6 +22,9 @@ public class UpdateDepartmentVo {
      * 部门别名
      */
     private String deptNickname;
+    /**
+     * 部门管理者
+     */
     private Integer deptManagerId;
 
     public String getDeptName() {

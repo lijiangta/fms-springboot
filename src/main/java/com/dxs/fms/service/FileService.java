@@ -13,6 +13,8 @@ import com.dxs.fms.vo.UpdateFileVo;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author dxs
  * @date 2020/3/16 0016 14:02
@@ -28,4 +30,11 @@ public interface FileService {
     PageUtils<FileDto> getPageByPageAndLimit(Integer page, Integer limit);
 
     Result1<FileDto> get(SelectFileVo selectFileVo);
+
+    /**
+     * 基于真实姓名查询有关的文件信息
+     * @param realName 拥有该文件的人的真实姓名
+     * @return 返回结果
+     */
+    Result1<FileDto> listFileByUserRealName(String realName);
 }

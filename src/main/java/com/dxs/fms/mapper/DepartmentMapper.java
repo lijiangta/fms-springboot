@@ -23,8 +23,8 @@ import java.util.List;
  * @author dxs
  * @date 2020/3/8 0008 17:20
  */
-@Repository
 @Mapper
+@Repository
 public interface DepartmentMapper {
     /**
      * 添加部门
@@ -38,7 +38,7 @@ public interface DepartmentMapper {
             @Result(column = "dept_code", property = "deptCode"),
             @Result(column = "dept_manager_id", property = "deptManagerId")
     })
-    public Integer addDepartment(AddDepartmentVo departmentVo);
+    Integer addDepartment(AddDepartmentVo departmentVo);
 
     /**
      * 查询部门
@@ -52,7 +52,7 @@ public interface DepartmentMapper {
             @Result(column = "dept_manager_name", property = "deptManagerName"),
             @Result(column = "dept_manager_id", property = "deptManagerId")
     })
-    public DepartmentDto getDepartment(SelectDepartmentVo selectDepartmentVo);
+    DepartmentDto getDepartment(SelectDepartmentVo selectDepartmentVo);
 
 
     /**
@@ -64,7 +64,7 @@ public interface DepartmentMapper {
     @Results(id = "UpdateDepartmentVo", value = {
             @Result(column = "dept_manager_id", property = "deptManagerId")
     })
-    public Integer setDepartment(UpdateDepartmentVo updateDepartmentVo);
+    Integer setDepartment(UpdateDepartmentVo updateDepartmentVo);
 
     /**
      * 删除部门
@@ -75,14 +75,23 @@ public interface DepartmentMapper {
     @Results(id = "DeleteDepartmentVo", value = {
             @Result(column = "dept_id", property = "deptId"),
     })
+    Integer delDepartment(DeleteDepartmentVo deleteDepartmentVo);
 
-    public Integer delDepartment(DeleteDepartmentVo deleteDepartmentVo);
-
+    @UpdateProvider(type = DepartmentSqlProvider.class, method = "updateDelByRealNameSql")
     Integer updateDelByRealName(String realName);
 
+    @UpdateProvider(type = DepartmentSqlProvider.class, method = "updateInfoSql")
+    @Results(id = "UpdateDepartmentVo", value = {
+            @Result(column = "dept_name", property = "deptName"),
+            @Result(column = "dept_code", property = "deptCode"),
+            @Result(column = "dept_nickname", property = "deptNickname"),
+            @Result(column = "dept_manager_id", property = "deptManagerId"),
+    })
     Integer updateInfo(UpdateDepartmentVo updateDepartmentVo);
 
+    @SelectProvider(type = DepartmentSqlProvider.class, method = "getPageByPageAndLimitSql")
     List<DepartmentDto> getPageByPageAndLimit(Integer start, Integer end);
 
+    @SelectProvider(type = DepartmentSqlProvider.class, method = "getAllSql")
     Integer getAll();
 }

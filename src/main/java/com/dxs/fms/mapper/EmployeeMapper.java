@@ -22,9 +22,8 @@ import org.apache.ibatis.annotations.UpdateProvider;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-@Repository
 @Mapper
+@Repository
 public interface EmployeeMapper {
     @InsertProvider(type = EmployeeSqlProvider.class, method = "addEmployee")
     public Integer addEmployee(AddEmployeeVo employeeVo);

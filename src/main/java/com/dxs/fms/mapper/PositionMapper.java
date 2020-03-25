@@ -19,9 +19,8 @@ import org.apache.ibatis.annotations.UpdateProvider;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-@Repository
 @Mapper
+@Repository
 public interface PositionMapper {
     @InsertProvider(type = PositionSqlProvider.class, method = "addPosition")
     public Integer addPosition(AddPositionVo addPositionVo);

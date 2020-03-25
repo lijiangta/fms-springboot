@@ -52,4 +52,29 @@ public class DepartmentSqlProvider {
             }
         }.toString();
     }
+
+    public String updateDelByRealNameSql(String realName){
+        return new SQL(){
+            {}
+        }.toString();
+    }
+
+    public String updateInfoSql(UpdateDepartmentVo updateDepartmentVo){
+        return new SQL(){
+            {}
+        }.toString();
+    }
+
+    public String getPageByPageAndLimitSql(Integer start, Integer end){
+        return new SQL(){
+            {}
+        }.toString();
+    }
+
+    public String getAllSql(){
+        return new SQL(){
+            {}
+        }.toString();
+    }
+
 }

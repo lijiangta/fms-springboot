@@ -21,9 +21,8 @@ import org.apache.ibatis.annotations.UpdateProvider;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-@Repository
 @Mapper
+@Repository
 public interface SfuMapper {
     @InsertProvider(type = SfuSqlProvider.class, method = "addSfu")
     public Integer addSfu(AddSfuVo addSfu);

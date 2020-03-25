@@ -9,7 +9,6 @@ import java.util.Date;
 public class UserDto {
     private String userRealName;
     private String userNickname;
-    private Date createTime;
 
     public String getUserRealName() {
         return userRealName;
@@ -27,20 +26,11 @@ public class UserDto {
         this.userNickname = userNickname;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
     @Override
     public String toString() {
         return "UserDto{" +
                 "userRealName='" + userRealName + '\'' +
                 ", userNickname='" + userNickname + '\'' +
-                ", createTime=" + createTime +
                 '}';
     }
 }

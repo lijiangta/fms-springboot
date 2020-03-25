@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
  * @author dxs
  * @date 2020/3/16 0016 10:41
  */
-@Service
 public interface DepartmentService {
 
     Result1<Integer> add(AddDepartmentVo addDepartmentVo);

@@ -15,6 +15,8 @@ import com.dxs.fms.vo.UpdateFileVo;
 import com.dxs.fms.vo.UpdateSfuVo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -22,6 +24,7 @@ import java.util.List;
  * @author dxs
  * @date 2020/3/16 0016 14:03
  */
+@Service
 public class SfuServiceImpl implements SfuService {
     @Autowired
     private SfuMapper sfuMapper;
@@ -45,7 +48,7 @@ public class SfuServiceImpl implements SfuService {
 
     @Override
     public Result1<Integer> updateInfo(UpdateSfuVo updateSfuVo) {
-        if(updateSfuVo == null || updateSfuVo.getEmpRealName() == null) return new Result1<>(false, -1);
+        //if(updateSfuVo == null || updateSfuVo.getEmpRealName() == null) return new Result1<>(false, -1);
         return new Result1<>(true, sfuMapper.updateInfo(updateSfuVo));
     }
 

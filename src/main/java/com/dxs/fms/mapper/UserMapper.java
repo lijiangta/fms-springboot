@@ -17,6 +17,7 @@ import org.apache.ibatis.annotations.ResultType;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -27,8 +28,8 @@ import java.util.List;
  * @author dxs
  * @date 2020/3/8 0008 15:45
  */
-@Repository
 @Mapper
+@Repository
 public interface UserMapper {
     /**
      * 注册用户
@@ -96,11 +97,7 @@ public interface UserMapper {
      * @return 返回的结果
      */
     @SelectProvider(type = UserSqlProvider.class, method = "getPageUserSql")
-    @Results(id = "UserDto", value = {
-            @Result(column = "user_realname", property = "userRealName"),
-            @Result(column = "user_nickname", property = "userNickname"),
-            @Result(column = "createtime", property = "createTime"),
-    })
+    @ResultMap("UserDto")
     List<UserDto> getPageUser(Integer start, Integer end);
 
     /**

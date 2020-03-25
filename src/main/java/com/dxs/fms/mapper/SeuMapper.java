@@ -21,9 +21,8 @@ import org.apache.ibatis.annotations.UpdateProvider;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-@Repository
 @Mapper
+@Repository
 public interface SeuMapper {
     @InsertProvider(type = SeuSqlProvider.class, method = "addSeu")
     public Integer addSeu(AddSeoVo addSeo);

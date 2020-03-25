@@ -15,6 +15,8 @@ import com.dxs.fms.vo.UpdateFileVo;
 import com.dxs.fms.vo.UpdateSeoVo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -22,6 +24,7 @@ import java.util.List;
  * @author dxs
  * @date 2020/3/16 0016 14:02
  */
+@Service
 public class SeuServiceImpl implements SeuService {
     @Autowired
     private SeuMapper seuMapper;
@@ -45,7 +48,7 @@ public class SeuServiceImpl implements SeuService {
 
     @Override
     public Result1<Integer> updateInfo(UpdateSeoVo updateSeoVo) {
-        if(updateSeoVo == null || updateSeoVo.getEmpRealName() == null) return new Result1<>(false, -1);
+        //if(updateSeoVo == null || updateSeoVo.getEmpRealName() == null) return new Result1<>(false, -1);
         return new Result1<>(true, seuMapper.updateInfo(updateSeoVo));
     }
 

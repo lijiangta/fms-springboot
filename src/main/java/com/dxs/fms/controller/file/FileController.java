@@ -13,6 +13,7 @@ import com.dxs.fms.vo.SelectEmployeeVo;
 import com.dxs.fms.vo.SelectFileVo;
 import com.dxs.fms.vo.UpdateEmployeeVo;
 import com.dxs.fms.vo.UpdateFileVo;
+import com.sun.org.apache.regexp.internal.RE;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author dxs
@@ -91,6 +94,17 @@ public class FileController {
     public ResponseBody<Result1<FileDto>> get(@RequestBody SelectFileVo selectFileVo){
         //SelectUserVo selectUserVo = new SelectUserVo();
         Result1<FileDto> result = fileService.get(selectFileVo);
+        return new ResponseBody<>("200", "成功", result);
+    }
+
+    /**
+     * 基于真实姓名查询有关的文件信息
+     * @param realName 拥有该文件的人的真实姓名
+     * @return 返回结果
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/listFile/{realName}")
+    public ResponseBody<Result1<FileDto>> listFile(@PathVariable("realName") String realName){
+        Result1<FileDto> result = fileService.listFileByUserRealName(realName);
         return new ResponseBody<>("200", "成功", result);
     }
 }

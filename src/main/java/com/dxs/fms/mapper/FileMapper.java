@@ -16,14 +16,15 @@ import com.dxs.fms.vo.UpdateFileVo;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-@Repository
 @Mapper
+@Repository
 public interface FileMapper {
     @InsertProvider(type = FileSqlProvider.class, method = "addFile")
     public Integer addFile(AddFileVo addFile);
@@ -44,4 +45,17 @@ public interface FileMapper {
     List<FileDto> getPageByPageAndLimit(Integer start, Integer end);
 
     Integer getAll();
+
+    /**
+     * 基于真实姓名查询有关的文件信息
+     * @param realName 拥有该文件的人的真实姓名
+     * @return 返回结果
+     */
+    @SelectProvider(type = FileSqlProvider.class, method = "listFileByUserRealNameSql")
+    @Results(id = "FileDto", value = {
+        @Result(column = "file_name", property = "fileName"),
+        @Result(column = "file_suffix", property = "fileSuffix"),
+        @Result(column = "creator", property = "creator")
+    })
+    List<FileDto> listFileByUserRealName(String realName);
 }
