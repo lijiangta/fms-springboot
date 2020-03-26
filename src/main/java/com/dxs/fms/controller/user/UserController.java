@@ -7,13 +7,16 @@ import com.dxs.fms.util.PageUtils;
 import com.dxs.fms.util.ResponseBody;
 import com.dxs.fms.util.Result1;
 import com.dxs.fms.vo.AddUserVo;
+import com.dxs.fms.vo.LoginUserVo;
 import com.dxs.fms.vo.SelectUserVo;
 import com.dxs.fms.vo.UpdateUserVo;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,7 +33,7 @@ import javax.validation.constraints.NotNull;
  * @date 2020/3/8 0008 20:51
  */
 @RestController
-@RequestMapping("user")
+@RequestMapping("api/user")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -96,6 +99,21 @@ public class UserController {
         SelectUserVo selectUserVo = new SelectUserVo();
         selectUserVo.setUserRealName(username);
         selectUserVo.setPassword(password);
+        Result1<UserDto> result = userService.getUser(selectUserVo);
+        return new ResponseBody<>("200", "成功", result);
+    }
+
+    /**
+     * 用户登录
+     * @param loginUserVo 登录对象
+     * @return 返回结果
+     */
+    @CrossOrigin
+    @PostMapping(value = "/login")
+    public ResponseBody<Result1<UserDto>> userLogin(@RequestBody LoginUserVo loginUserVo){
+        SelectUserVo selectUserVo = new SelectUserVo();
+        selectUserVo.setUserRealName(loginUserVo.getUsername());
+        selectUserVo.setPassword(loginUserVo.getPassword());
         Result1<UserDto> result = userService.getUser(selectUserVo);
         return new ResponseBody<>("200", "成功", result);
     }
