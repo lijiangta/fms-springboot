@@ -30,7 +30,7 @@ public class UserSqlProvider {
         //"select user_realname from dxs_user u where u.user_nickname = #{userNickname}"
         return new SQL(){
             {
-                SELECT("user_realname, user_nickname")
+                SELECT("user_realname, user_nickname, user_password")
                         .FROM("dxs_user");
                         if(selectUserVo.getUserRealName() != null) WHERE("user_realname = #{userRealName} and del = 0");
                         if(selectUserVo.getUserNickname() != null) WHERE("user_nickname = #{userNickname} and del = 0");

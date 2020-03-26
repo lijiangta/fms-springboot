@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
             return new Result1<UserDto>(false, new UserDto(),new Error("登录的对象为null"));
         }
         userDto = userMapper.getUser(selectUserVo);
-        if(userDto == null){
+        if(userDto.isEmpty()){
             return new Result1<UserDto>(false, new UserDto(), new Error("在数据库中未查询到指定对象"));
         }
         return new Result1<UserDto>(true, userDto.get(0));

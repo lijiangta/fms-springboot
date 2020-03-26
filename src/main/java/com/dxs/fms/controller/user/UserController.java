@@ -110,12 +110,21 @@ public class UserController {
      */
     @CrossOrigin
     @PostMapping(value = "/login")
-    public ResponseBody<Result1<UserDto>> userLogin(@RequestBody LoginUserVo loginUserVo){
+    public ResponseBody<Result1<LoginUserVo>> userLogin(@RequestBody LoginUserVo loginUserVo){
         SelectUserVo selectUserVo = new SelectUserVo();
         selectUserVo.setUserRealName(loginUserVo.getUsername());
         selectUserVo.setPassword(loginUserVo.getPassword());
         Result1<UserDto> result = userService.getUser(selectUserVo);
-        return new ResponseBody<>("200", "成功", result);
+        if(result.getError() != null){
+            return new ResponseBody<>("403", result.getError(), "用户名不存在");
+        }
+        //将对象传给前端
+        LoginUserVo loginUserVo1 = new LoginUserVo();
+        loginUserVo1.setUsername(result.getData().getUserRealName());
+        loginUserVo1.setPassword(result.getData().getUserPassword());
+        Result1<LoginUserVo> result1 = new Result1<>();
+        result1.setData(loginUserVo1);
+        return new ResponseBody<>("200", "成功", result1);
     }
 
     /**

@@ -56,6 +56,7 @@ public interface UserMapper {
     @Results(id = "UserDto", value = {
             @Result(column = "user_realname", property = "userRealName"),
             @Result(column = "user_nickname", property = "userNickname"),
+            @Result(column = "user_password", property = "userPassword"),
     })
     List<UserDto> getUser(SelectUserVo selectUserVo);
 

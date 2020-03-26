@@ -17,6 +17,7 @@ public class ResponseBody<T> {
     private String statusCode;
     private String message;
     private T data;
+    private Error error;
 
     public ResponseBody() {
 
@@ -26,5 +27,11 @@ public class ResponseBody<T> {
         this.statusCode = statusCode;
         this.message = message;
         this.data = data;
+    }
+
+    public ResponseBody(String statusCode, Error error, String message) {
+        this.statusCode = statusCode;
+        this.message = message;
+        this.error = error;
     }
 }
