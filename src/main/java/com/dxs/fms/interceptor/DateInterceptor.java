@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.Properties;
 
 /**
- * 自定义 Mybatis 插件，自动设置 createTime 和 updatTime 的值。
+ * 自定义 Mybatis 插件，自动设置 createTime 和 updateTime 的值。
  * 拦截 update 操作（添加和修改）
  * @author dxs
  * @date 2020/3/9 0009 3:24

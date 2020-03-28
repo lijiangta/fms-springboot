@@ -1,5 +1,6 @@
 package com.dxs.fms.service;
 
+import com.dxs.fms.dto.AddDepartmentDto;
 import com.dxs.fms.dto.DepartmentDto;
 import com.dxs.fms.dto.UserDto;
 import com.dxs.fms.util.PageUtils;
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Service;
  */
 public interface DepartmentService {
 
-    Result1<Integer> add(AddDepartmentVo addDepartmentVo);
+    Result1<Integer> add(AddDepartmentDto addDepartmentDto);
 
     Result1<Integer> updateDelByRealName(String realName);
 

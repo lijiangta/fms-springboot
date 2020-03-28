@@ -7,13 +7,13 @@ import org.apache.ibatis.jdbc.SQL;
  * @date 2020/3/8 0008 18:26
  */
 public class PositionSqlProvider {
-    public String addPosition(){
+    public String addPositionSql(){
         //"insert into dxs_position(position_realname, position_nickname, position_code, creator_id) values(#{}, #{}, #{}, #{})"
         return new SQL(){
             {
                 INSERT_INTO("dxs_position")
-                        .INTO_COLUMNS("position_realname", "position_nickname", "position_code", "creator_id")
-                        .INTO_VALUES("#{position_realname}", "#{position_nickname}", "#{position_code}", "#{creator_id}");
+                        .INTO_COLUMNS("company_id","position_realname", "position_nickname", "position_code", "creator_id","create_time","del")
+                        .INTO_VALUES("#{companyId}","#{positionRealname}", "#{positionNickname}", "#{positionCode}", "#{creatorId}","#{createTime}","#{del}");
             }
         }.toString();
     }

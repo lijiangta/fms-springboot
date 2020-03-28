@@ -1,11 +1,16 @@
 package com.dxs.fms.controller.department;
 
+import com.dxs.fms.dto.AddCompanyDto;
+import com.dxs.fms.dto.AddDepartmentDto;
 import com.dxs.fms.dto.DepartmentDto;
+import com.dxs.fms.dto.SelectCompanyDto;
 import com.dxs.fms.dto.UserDto;
+import com.dxs.fms.mapper.CompanyMapper;
 import com.dxs.fms.service.DepartmentService;
 import com.dxs.fms.util.PageUtils;
 import com.dxs.fms.util.ResponseBody;
 import com.dxs.fms.util.Result1;
+import com.dxs.fms.vo.AddCompanyVo;
 import com.dxs.fms.vo.AddDepartmentVo;
 import com.dxs.fms.vo.AddUserVo;
 import com.dxs.fms.vo.SelectDepartmentVo;
@@ -14,6 +19,7 @@ import com.dxs.fms.vo.UpdateDepartmentVo;
 import com.dxs.fms.vo.UpdateUserVo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,19 +36,30 @@ import org.springframework.web.bind.annotation.RestController;
 public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
+    @Autowired
+    private CompanyMapper companyMapper;
     /**
      * 部门注册
      * @param addDepartmentVo 前端传后台的用户对象
      * @return 返回处理结果
      */
-    @ExceptionHandler(RuntimeException.class)
-    @RequestMapping(method = RequestMethod.GET, value = "/add")
-    public ResponseBody<Result1<Integer>> add(AddDepartmentVo addDepartmentVo){
-        if(addDepartmentVo == null){
-            throw  new RuntimeException();
+    @CrossOrigin
+    @RequestMapping(method = RequestMethod.POST, value = "/addDepartment")
+    public ResponseBody<Result1<Integer>> addCompany(@RequestBody AddDepartmentVo addDepartmentVo){
+        AddDepartmentDto addDepartmentDto = new AddDepartmentDto();
+        addDepartmentDto.setDeptName(addDepartmentVo.getDeptNickname());
+        addDepartmentDto.setDeptCode(addDepartmentVo.getDeptCode());
+        addDepartmentDto.setDeptNickname(addDepartmentVo.getDeptNickname());
+        addDepartmentDto.setDeptManagerId(addDepartmentVo.getDeptManagerId());
+        addDepartmentDto.setCreatorId(addDepartmentVo.getCreatorId());
+        SelectCompanyDto selectCompanyDto = companyMapper.getCompanyId(addDepartmentVo.getCompanyName());
+        addDepartmentDto.setCompanyId(selectCompanyDto.getCompanyId());
+
+        Result1<Integer> result = departmentService.add(addDepartmentDto);
+        if(result.getData() == -1){
+            return new ResponseBody<>("403",result.getError(),"请求失败，请检查有关的数据是否正确");
         }
-        Result1<Integer> result = departmentService.add(addDepartmentVo);
-        return new ResponseBody<>("200", "成功", result);
+        return new ResponseBody<>("200","成功",result);
     }
 
     /**

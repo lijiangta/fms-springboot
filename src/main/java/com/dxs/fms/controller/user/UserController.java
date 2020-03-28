@@ -1,6 +1,12 @@
 package com.dxs.fms.controller.user;
 
+import com.dxs.fms.dto.AddSeuDto;
+import com.dxs.fms.dto.AddUserDto;
+import com.dxs.fms.dto.SelectCompanyDto;
+import com.dxs.fms.dto.SelectDepartmentDto;
 import com.dxs.fms.dto.UserDto;
+import com.dxs.fms.mapper.CompanyMapper;
+import com.dxs.fms.mapper.DepartmentMapper;
 import com.dxs.fms.mapper.UserMapper;
 import com.dxs.fms.service.UserService;
 import com.dxs.fms.util.PageUtils;
@@ -37,6 +43,10 @@ import javax.validation.constraints.NotNull;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private CompanyMapper companyMapper;
+    @Autowired
+    private DepartmentMapper departmentMapper;
 
     @RequestMapping(method = RequestMethod.GET, value = "/hello/{username}/{password}")
     public Map<String, String> hello(@PathVariable("username") String username,@PathVariable("password") String password){
@@ -48,14 +58,13 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET, value = "/addUser1")
     public String addUser1(AddUserVo addUserVo){
         addUserVo.setUserPassword("wqwq");
-        addUserVo.setGender(false);
+        addUserVo.setGender("男");
         addUserVo.setUserRealName("2wqwq");
         addUserVo.setUserNickname("45wqwq4eqweq5");
-        addUserVo.setDel(false);
         if(addUserVo == null){
             throw  new RuntimeException();
         }
-        Result1<Integer> result = userService.addUser(addUserVo);
+        //Result1<Integer> result = userService.addUser(addUserVo);
         return "success";
     }
 
@@ -75,16 +84,11 @@ public class UserController {
      */
     @ExceptionHandler(RuntimeException.class)
     @RequestMapping(method = RequestMethod.GET, value = "/add")
-    public ResponseBody<Result1<Integer>> add(AddUserVo addUserVo){
-        addUserVo.setUserPassword("ewq");
-        addUserVo.setGender(false);
-        addUserVo.setUserRealName("1ewqe2132");
-        addUserVo.setUserNickname("454eqweq5");
-        addUserVo.setDel(false);
-        if(addUserVo == null){
-            throw  new RuntimeException();
-        }
+    public ResponseBody<Result1<Integer>> add(@RequestBody AddUserVo addUserVo){
         Result1<Integer> result = userService.addUser(addUserVo);
+        if(result.getData() == -1){
+            return new ResponseBody<>("403",result.getError(),"请求失败，请检查有关的数据是否正确");
+        }
         return new ResponseBody<>("200", "成功", result);
     }
 

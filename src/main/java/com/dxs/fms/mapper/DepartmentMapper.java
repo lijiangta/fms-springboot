@@ -1,6 +1,9 @@
 package com.dxs.fms.mapper;
 
+import com.dxs.fms.dto.AddDepartmentDto;
 import com.dxs.fms.dto.DepartmentDto;
+import com.dxs.fms.dto.SelectDepartmentDto;
+import com.dxs.fms.dto.SelectPositionDto;
 import com.dxs.fms.dto.UserDto;
 import com.dxs.fms.sqlprovider.DepartmentSqlProvider;
 import com.dxs.fms.vo.AddDepartmentVo;
@@ -28,17 +31,21 @@ import java.util.List;
 public interface DepartmentMapper {
     /**
      * 添加部门
-     * @param departmentVo 前端传给后端的部门对象
+     * @param addDepartmentDto 前端传给后端的部门对象
      * @return 返回处理结果
      */
-    @InsertProvider(type = DepartmentSqlProvider.class, method = "addDepartment")
-    @Results(id = "AddDepartmentVo", value = {
-            @Result(column = "dept_realname", property = "deptRealName"),
+    @InsertProvider(type = DepartmentSqlProvider.class, method = "addDepartmentSql")
+    @Results(id = "AddDepartmentDto", value = {
+            @Result(column = "company_id", property = "companyId"),
+            @Result(column = "dept_name", property = "deptName"),
             @Result(column = "dept_nickname", property = "deptNickname"),
             @Result(column = "dept_code", property = "deptCode"),
-            @Result(column = "dept_manager_id", property = "deptManagerId")
+            @Result(column = "dept_manager_id", property = "deptManagerId"),
+            @Result(column = "create_time", property = "createTime"),
+            @Result(column = "creator_id", property = "creatorId"),
+            @Result(column = "del", property = "del"),
     })
-    Integer addDepartment(AddDepartmentVo departmentVo);
+    Integer addDepartment(AddDepartmentDto addDepartmentDto);
 
     /**
      * 查询部门
@@ -94,4 +101,10 @@ public interface DepartmentMapper {
 
     @SelectProvider(type = DepartmentSqlProvider.class, method = "getAllSql")
     Integer getAll();
+
+    @SelectProvider(type = DepartmentSqlProvider.class, method = "getDepartmentIdSql")
+    @Results(id = "SelectDepartmentDto",value = {
+            @Result(column = "department_id",property = "deptId"),
+    })
+    SelectDepartmentDto getDepartmentId(Integer companyId, String deptName);
 }

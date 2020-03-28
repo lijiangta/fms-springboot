@@ -1,17 +1,23 @@
 package com.dxs.fms.controller.seu;
 
-import com.dxs.fms.dto.FileDto;
+import com.dxs.fms.dto.AddSeuDto;
+import com.dxs.fms.dto.SelectCompanyDto;
+import com.dxs.fms.dto.SelectDepartmentDto;
+import com.dxs.fms.dto.SelectEmployeeDto;
+import com.dxs.fms.dto.SelectPositionDto;
 import com.dxs.fms.dto.SeuDto;
-import com.dxs.fms.service.FileService;
+import com.dxs.fms.mapper.CompanyMapper;
+import com.dxs.fms.mapper.DepartmentMapper;
+import com.dxs.fms.mapper.EmployeeMapper;
+import com.dxs.fms.mapper.PositionMapper;
 import com.dxs.fms.service.SeuService;
 import com.dxs.fms.util.PageUtils;
 import com.dxs.fms.util.ResponseBody;
 import com.dxs.fms.util.Result1;
-import com.dxs.fms.vo.AddFileVo;
-import com.dxs.fms.vo.AddSeoVo;
-import com.dxs.fms.vo.SelectFileVo;
+import com.dxs.fms.vo.AddSeuVo;
+import com.dxs.fms.vo.SelectDepartmentVo;
+import com.dxs.fms.vo.SelectEmployeeVo;
 import com.dxs.fms.vo.SelectSeoVo;
-import com.dxs.fms.vo.UpdateFileVo;
 import com.dxs.fms.vo.UpdateSeoVo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,18 +37,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class SeuController {
     @Autowired
     private SeuService seuService;
+
     /**
      * 部门注册
-     * @param addSeoVo 前端传后台的用户对象
+     * @param addSeuVo 前端传后台的用户对象
      * @return 返回处理结果
      */
     @ExceptionHandler(RuntimeException.class)
     @RequestMapping(method = RequestMethod.GET, value = "/add")
-    public ResponseBody<Result1<Integer>> add(AddSeoVo addSeoVo){
-        if(addSeoVo == null){
-            throw  new RuntimeException();
+    public ResponseBody<Result1<Integer>> add(AddSeuVo addSeuVo){
+        Result1<Integer> result = seuService.add(addSeuVo);
+        if(result.getData() == -1){
+            return new ResponseBody<>("403",result.getError(),"请求失败，请检查有关的数据是否正确");
         }
-        Result1<Integer> result = seuService.add(addSeoVo);
         return new ResponseBody<>("200", "成功", result);
     }
 

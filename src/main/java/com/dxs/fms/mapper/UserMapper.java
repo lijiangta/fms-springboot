@@ -1,5 +1,6 @@
 package com.dxs.fms.mapper;
 
+import com.dxs.fms.dto.AddUserDto;
 import com.dxs.fms.dto.UserDto;
 import com.dxs.fms.sqlprovider.UserSqlProvider;
 import com.dxs.fms.vo.AddUserVo;
@@ -33,11 +34,13 @@ import java.util.List;
 public interface UserMapper {
     /**
      * 注册用户
-     * @param addUserVo 前端传给后端的用户对象
+     * @param addUserDto 前端传给后端的用户对象
      * @return 返回处理结果
      */
     @InsertProvider(type = UserSqlProvider.class, method = "addrUserSql")
-    @Results(id = "AddUserVo", value = {
+    @Results(id = "AddUserDto", value = {
+            @Result(column = "company_id", property = "companyId"),
+            @Result(column = "dept_id", property = "deptId"),
             @Result(column = "user_realname", property = "userRealName"),
             @Result(column = "user_nickname", property = "userNickname"),
             @Result(column = "user_password", property = "userPassword"),
@@ -45,7 +48,7 @@ public interface UserMapper {
             @Result(column = "gender", property = "gender"),
             @Result(column = "del", property = "del")
     })
-    Integer addrUser(AddUserVo addUserVo);
+    Integer addrUser(AddUserDto addUserDto);
 
     /**
      * 查询用户

@@ -12,13 +12,13 @@ import org.apache.ibatis.jdbc.SQL;
  * @date 2020/3/8 0008 18:25
  */
 public class DepartmentSqlProvider {
-    public String addDepartment(AddDepartmentVo departmentVo){
+    public String addDepartmentSql(AddDepartmentVo departmentVo){
         //"insert into dxs_department(dept_name, dept_nickname, dept_code, dept_manager_id, creator_id) values(#{}, #{}, #{}, #{}, #{})"
         return new SQL(){
             {
                 INSERT_INTO("dxs_department d")
-                        .INTO_COLUMNS("dept_name", "dept_nickname", "dept_code", "dept_manager_id", "creator_id")
-                        .INTO_VALUES("#{deptName}", "#{deptNickname}", "#{deptCode}", "#{deptManagerId}", "#{creatorId}");
+                        .INTO_COLUMNS("company_id","dept_name", "dept_nickname", "dept_code", "dept_manager_id", "creator_id", "create_time", "del")
+                        .INTO_VALUES("#{companyId}","#{deptName}", "#{deptNickname}", "#{deptCode}", "#{deptManagerId}", "#{creatorId}","#{createTime}","#{del}");
             }
         }.toString();
     }
@@ -77,4 +77,23 @@ public class DepartmentSqlProvider {
         }.toString();
     }
 
+    public String getPositionIdSql(Integer companyId, String positionName){
+        return new SQL(){
+            {
+                SELECT("position_id");
+                FROM("dxs_position");
+                WHERE("company_id = #{companyId} and position_realname = #{positionName}");
+            }
+        }.toString();
+    }
+
+    public String getDepartmentIdSql(Integer companyId, String deptName){
+        return new SQL(){
+            {
+                SELECT("department_id");
+                FROM("dxs_department");
+                WHERE("company_id = #{companyId} and department_realname = #{deptName}");
+            }
+        }.toString();
+    }
 }

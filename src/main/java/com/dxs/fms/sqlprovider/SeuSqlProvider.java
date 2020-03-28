@@ -1,5 +1,7 @@
 package com.dxs.fms.sqlprovider;
 
+import com.dxs.fms.dto.AddSeuDto;
+
 import org.apache.ibatis.jdbc.SQL;
 
 /**
@@ -7,13 +9,13 @@ import org.apache.ibatis.jdbc.SQL;
  * @date 2020/3/8 0008 18:25
  */
 public class SeuSqlProvider {
-    public String addSeu(){
+    public String addSeuSql(AddSeuDto addSeuDto){
         //"insert into dxs_seu() values()"
         return new SQL(){
             {
                 INSERT_INTO("dxs_seu")
-                        .INTO_COLUMNS("dept_id", "emp_id", "position_id", "creator_id")
-                        .INTO_VALUES("#{deptId}", "#{empId}", "#{positionId}", "#{creatorId}");
+                        .INTO_COLUMNS("dept_id", "emp_id", "position_id", "creator_id", "cretetime", "del")
+                        .INTO_VALUES("#{deptId}", "#{empId}", "#{positionId}", "#{creatorId}", "#{creteTime}", "#{del}");
             }
         }.toString();
     }

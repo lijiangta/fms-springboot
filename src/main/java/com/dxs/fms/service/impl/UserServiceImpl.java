@@ -1,9 +1,15 @@
 package com.dxs.fms.service.impl;
 
+import com.dxs.fms.dto.AddUserDto;
+import com.dxs.fms.dto.SelectCompanyDto;
+import com.dxs.fms.dto.SelectDepartmentDto;
 import com.dxs.fms.dto.UserDto;
+import com.dxs.fms.mapper.CompanyMapper;
+import com.dxs.fms.mapper.DepartmentMapper;
 import com.dxs.fms.mapper.UserMapper;
 import com.dxs.fms.service.UserService;
 import com.dxs.fms.util.PageUtils;
+import com.dxs.fms.util.ResponseBody;
 import com.dxs.fms.util.Result1;
 import com.dxs.fms.vo.AddUserVo;
 import com.dxs.fms.vo.SelectUserVo;
@@ -28,6 +34,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private CompanyMapper companyMapper;
+    @Autowired
+    private DepartmentMapper departmentMapper;
 
     /**
      * 注册用户
@@ -37,9 +47,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result1<Integer> addUser(AddUserVo addUserVo){
         if(addUserVo == null){
-            return new Result1<Integer>(false,-1);
+            throw  new RuntimeException();
         }
-        Integer  result = userMapper.addrUser(addUserVo);
+        AddUserDto addUserDto = new AddUserDto();
+        SelectCompanyDto selectCompanyDto = companyMapper.getCompanyId(addUserVo.getCompanyName());
+        addUserDto.setCompanyId(selectCompanyDto.getCompanyId());
+        SelectDepartmentDto selectDepartmentDto = departmentMapper.getDepartmentId(selectCompanyDto.getCompanyId(), addUserVo.getDeptName());
+        addUserDto.setDeptId(selectDepartmentDto.getDeptId());
+        addUserDto.setUserRealName(addUserVo.getUserRealName());
+        addUserDto.setUserNickname(addUserVo.getUserNickname());
+        if("女".equals(addUserVo.getGender())){
+            addUserDto.setGender(0);
+        }else if("男".equals(addUserVo.getGender())){
+            addUserDto.setGender(1);
+        }
+        addUserDto.setDel(false);
+        Integer  result = userMapper.addrUser(addUserDto);
         return new Result1<Integer>(true,result);
     }
 

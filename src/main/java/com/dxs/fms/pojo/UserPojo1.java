@@ -19,6 +19,21 @@ public class UserPojo1 {
      */
     private Integer uId;
     /**
+     * 2020/3/27
+     * seuId
+     */
+    private Integer seuId;
+    /**
+     * 2020/3/27
+     * 公司id
+     */
+    private Integer companyId;
+    /**
+     * 2020/3/28
+     * 部门id
+     */
+    private Integer deptId;
+    /**
      * 用户真实姓名
      */
     private String userRealName;

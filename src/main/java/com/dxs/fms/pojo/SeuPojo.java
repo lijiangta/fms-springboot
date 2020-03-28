@@ -19,6 +19,11 @@ public class SeuPojo {
      */
     private Integer seuId;
     /**
+     * 2020/3/27
+     * 公司id
+     */
+    private Integer companyId;
+    /**
      * 部门id
      */
     private Integer deptId;

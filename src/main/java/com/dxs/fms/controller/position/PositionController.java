@@ -1,15 +1,21 @@
 package com.dxs.fms.controller.position;
 
+import com.dxs.fms.dto.AddDepartmentDto;
+import com.dxs.fms.dto.AddPositionDto;
 import com.dxs.fms.dto.PositionDto;
+import com.dxs.fms.dto.SelectCompanyDto;
+import com.dxs.fms.mapper.CompanyMapper;
 import com.dxs.fms.service.PositionService;
 import com.dxs.fms.util.PageUtils;
 import com.dxs.fms.util.ResponseBody;
 import com.dxs.fms.util.Result1;
+import com.dxs.fms.vo.AddDepartmentVo;
 import com.dxs.fms.vo.AddPositionVo;
 import com.dxs.fms.vo.SelectPositionVo;
 import com.dxs.fms.vo.UpdatePositionVo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,19 +32,28 @@ import org.springframework.web.bind.annotation.RestController;
 public class PositionController {
     @Autowired
     private PositionService positionService;
+    @Autowired
+    private CompanyMapper companyMapper;
     /**
      * 部门注册
      * @param addPositionVo 前端传后台的用户对象
      * @return 返回处理结果
      */
-    @ExceptionHandler(RuntimeException.class)
-    @RequestMapping(method = RequestMethod.GET, value = "/add")
-    public ResponseBody<Result1<Integer>> add(AddPositionVo addPositionVo){
-        if(addPositionVo == null){
-            throw  new RuntimeException();
+    @CrossOrigin
+    @RequestMapping(method = RequestMethod.POST, value = "/addPosition")
+    public ResponseBody<Result1<Integer>> addPosition(@RequestBody AddPositionVo addPositionVo){
+        AddPositionDto addPositionDto = new AddPositionDto();
+        addPositionDto.setPositionRealName(addPositionVo.getPositionName());
+        addPositionDto.setPositionNickname(addPositionVo.getPositionNickname());
+        addPositionDto.setPositionCode(addPositionVo.getPositionCode());
+        SelectCompanyDto selectCompanyDto = companyMapper.getCompanyId(addPositionVo.getCompanyName());
+        addPositionDto.setCompanyId(selectCompanyDto.getCompanyId());
+
+        Result1<Integer> result = positionService.add(addPositionDto);
+        if(result.getData() == -1){
+            return new ResponseBody<>("403",result.getError(),"请求失败，请检查有关的数据是否正确");
         }
-        Result1<Integer> result = positionService.add(addPositionVo);
-        return new ResponseBody<>("200", "成功", result);
+        return new ResponseBody<>("200","成功",result);
     }
 
     /**

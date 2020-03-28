@@ -46,4 +46,14 @@ public class EmployeeSqlProvider {
             }
         }.toString();
     }
+
+    public String getEmployeeIdSql(Integer companyId, String empName){
+        return new SQL(){
+            {
+                SELECT("employee_id");
+                FROM("dxs_employee");
+                WHERE("company_id = #{companyId} and employee_realname = #{empName}");
+            }
+        }.toString();
+    }
 }

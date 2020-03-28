@@ -12,13 +12,37 @@ import java.util.Date;
  */
 
 public class AddUserVo implements Serializable {
+    private String companyName;
+    private String deptName;
+    private String positionName;
     private String userRealName;
     private String userNickname;
     private String userPassword;
-    private boolean gender;
-    @CreateTime
-    private Date createTime;
-    private boolean del;
+    private String gender;
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    public String getPositionName() {
+        return positionName;
+    }
+
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
+    }
 
     public String getUserRealName() {
         return userRealName;
@@ -44,39 +68,24 @@ public class AddUserVo implements Serializable {
         this.userPassword = userPassword;
     }
 
-    public boolean isGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public boolean isDel() {
-        return del;
-    }
-
-    public void setDel(boolean del) {
-        this.del = del;
     }
 
     @Override
     public String toString() {
         return "AddUserVo{" +
-                "userRealName='" + userRealName + '\'' +
+                "companyName='" + companyName + '\'' +
+                ", deptName='" + deptName + '\'' +
+                ", positionName='" + positionName + '\'' +
+                ", userRealName='" + userRealName + '\'' +
                 ", userNickname='" + userNickname + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", gender=" + gender +
-                ", createTime=" + createTime +
-                ", del=" + del +
                 '}';
     }
 }

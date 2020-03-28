@@ -1,5 +1,6 @@
 package com.dxs.fms.service.impl;
 
+import com.dxs.fms.dto.AddDepartmentDto;
 import com.dxs.fms.dto.DepartmentDto;
 import com.dxs.fms.dto.UserDto;
 import com.dxs.fms.mapper.DepartmentMapper;
@@ -27,11 +28,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     private DepartmentMapper departmentMapper;
 
     @Override
-    public Result1<Integer> add(AddDepartmentVo addDepartmentVo) {
-        if(addDepartmentVo == null){
+    public Result1<Integer> add(AddDepartmentDto addDepartmentDto) {
+        if(addDepartmentDto == null){
             return new Result1<Integer>(false,-1);
         }
-        Integer  result = departmentMapper.addDepartment(addDepartmentVo);
+        addDepartmentDto.setDel(0);
+        Integer  result = departmentMapper.addDepartment(addDepartmentDto);
         return new Result1<Integer>(true,result);
     }
 

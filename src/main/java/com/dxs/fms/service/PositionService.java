@@ -1,5 +1,6 @@
 package com.dxs.fms.service;
 
+import com.dxs.fms.dto.AddPositionDto;
 import com.dxs.fms.dto.PositionDto;
 import com.dxs.fms.util.PageUtils;
 import com.dxs.fms.util.Result1;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
  * @date 2020/3/16 0016 14:01
  */
 public interface PositionService {
-    Result1<Integer> add(AddPositionVo addPositionVo);
+    Result1<Integer> add(AddPositionDto addPositionDto);
 
     Result1<Integer> updateDelByRealName(String realName);
 

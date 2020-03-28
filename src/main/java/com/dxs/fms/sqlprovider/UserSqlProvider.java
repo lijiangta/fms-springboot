@@ -1,5 +1,7 @@
 package com.dxs.fms.sqlprovider;
 
+import com.dxs.fms.dto.AddUserDto;
+import com.dxs.fms.vo.AddSfuVo;
 import com.dxs.fms.vo.AddUserVo;
 import com.dxs.fms.vo.DeleteUserVo;
 import com.dxs.fms.vo.SelectUserVo;
@@ -17,12 +19,12 @@ import jdk.nashorn.internal.objects.annotations.Where;
  * @date 2020/3/8 0008 18:24
  */
 public class UserSqlProvider {
-    public String addrUserSql(AddUserVo addUserVo){
+    public String addrUserSql(AddUserDto addUserDto){
         //"insert into dxs_user(user_realname, user_nickname, user_password, gender) values(#{}, #{}, #{}, #{})"
         return new SQL()
                 .INSERT_INTO("dxs_user")
-                .INTO_COLUMNS("user_realname", "user_nickname", "user_password", "gender", "createtime", "del")
-                .INTO_VALUES("#{userRealName}","#{userNickname}","#{userPassword}","#{gender}","#{createTime}","#{del}")
+                .INTO_COLUMNS("company_id", "dept_id","user_realname", "user_nickname", "user_password", "gender", "createtime", "del")
+                .INTO_VALUES("#{companyId}","#{deptId}","#{userRealName}","#{userNickname}","#{userPassword}","#{gender}","#{createTime}","#{del}")
                 .toString();
     }
     public String getUserSql(SelectUserVo selectUserVo){
@@ -100,4 +102,13 @@ public class UserSqlProvider {
             }
         }.toString();
     }
+
+    /*public String addUserSql(AddUserVo addUserVo){
+        //insert into dxs_company(company_name, company_code, create_time,del) value("第一家公司", "400", "2020-03-27", 0)
+        //insert into dxs_department(company_id, dept_manager_id, dept_name, dept_code, dept_nickname, creator_id, create_time, del) value(1, 1, "第一个部门"，"301", "部门别名", 1, "2020-03-27", 0)
+        //insert into dxs_position(company_id,position_name,position_code,position_nickname,creator_id,create_time,del) value(1, 1, "第一个职位"，"201", "职位别名", 1, "2020-03-27", 0)
+        //insert into dxs_employee(company_id,employee_position_id,employee_realname,employee_nickname,gender,creator_id,create_time,del) value(1, 1, "第一个员工真实姓名"，"第一个员工别名", 0, 1, "2020-03-27", 0)
+        //insert into dxs_seu(company_id, dept_id, emp_id, position_id, created_id, create_time, del) value(1,1,1,1,1,"2020-03-27", 0)
+        //insert into dxs_user(seu_id,company_id,user_realname,user_nickname,user_gender,create_time,creator_id,del) value(1,1,"第一个真实名称"，"第一个别名",0,"2020-03-27",1, 0)
+    }*/
 }

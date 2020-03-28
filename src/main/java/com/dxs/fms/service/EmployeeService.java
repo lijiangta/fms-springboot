@@ -1,11 +1,13 @@
 package com.dxs.fms.service;
 
+import com.dxs.fms.dto.AddEmployeeDto;
 import com.dxs.fms.dto.DepartmentDto;
 import com.dxs.fms.dto.EmployeeDto;
 import com.dxs.fms.util.PageUtils;
 import com.dxs.fms.util.Result1;
 import com.dxs.fms.vo.AddDepartmentVo;
 import com.dxs.fms.vo.AddEmployeeVo;
+import com.dxs.fms.vo.RegisterEmployeeVo;
 import com.dxs.fms.vo.SelectDepartmentVo;
 import com.dxs.fms.vo.SelectEmployeeVo;
 import com.dxs.fms.vo.UpdateDepartmentVo;
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author dxs
- * @date 2020/3/16 0016 14:01
+ * @date 2020/3/16 0016 14:01EmployeeService
  */
 public interface EmployeeService {
     Result1<Integer> add(AddEmployeeVo addEmployeeVo);
@@ -27,4 +29,6 @@ public interface EmployeeService {
     PageUtils<EmployeeDto> getPageByPageAndLimit(Integer page, Integer limit);
 
     Result1<EmployeeDto> get(SelectEmployeeVo selectEmployeeVo);
+
+    Result1<Integer> registerEmployee(RegisterEmployeeVo registerEmployeeVo);
 }

@@ -1,5 +1,6 @@
 package com.dxs.fms.service.impl;
 
+import com.dxs.fms.dto.AddPositionDto;
 import com.dxs.fms.dto.PositionDto;
 import com.dxs.fms.mapper.PositionMapper;
 import com.dxs.fms.service.PositionService;
@@ -25,11 +26,12 @@ public class PositionServiceImpl implements PositionService {
     private PositionMapper positionMapper;
 
     @Override
-    public Result1<Integer> add(AddPositionVo addPositionVo) {
-        if(addPositionVo == null){
+    public Result1<Integer> add(AddPositionDto addPositionDto) {
+        if(addPositionDto == null){
             return new Result1<Integer>(false,-1);
         }
-        Integer  result = positionMapper.addPosition(addPositionVo);
+        addPositionDto.setDel(0);
+        Integer  result = positionMapper.addPosition(addPositionDto);
         return new Result1<Integer>(true,result);
     }
 

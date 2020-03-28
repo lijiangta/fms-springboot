@@ -1,5 +1,7 @@
 package com.dxs.fms.pojo;
 
+import com.dxs.fms.annotation.CreateTime;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,6 +19,11 @@ public class PositionPojo {
      */
     private Integer positionId;
     /**
+     * 2020/3/27
+     * 公司id
+     */
+    private Integer companyId;
+    /**
      * 职位代码
      */
     private String positionCode;
@@ -31,6 +38,7 @@ public class PositionPojo {
     /**
      * 创建时间
      */
+    @CreateTime
     private Integer creatorTime;
     /**
      * 该职位是否删除（0否1是）

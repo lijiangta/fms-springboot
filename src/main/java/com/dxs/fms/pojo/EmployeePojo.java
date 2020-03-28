@@ -19,6 +19,11 @@ public class EmployeePojo {
      */
     private Integer employeeId;
     /**
+     * 2020/3/27
+     * 公司id
+     */
+    private Integer companyId;
+    /**
      * 员工的职位名称
      */
     private String employeePositionName;
